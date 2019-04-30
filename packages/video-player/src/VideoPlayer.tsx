@@ -1,7 +1,7 @@
 import { flattenStyles } from "@native-mobile-resources/util-widgets";
 import { Component, createElement, createRef } from "react";
 import { ActivityIndicator, View } from "react-native";
-import Video from "react-native-video";
+import Video, { OnLoadData } from "react-native-video";
 import { VideoPlayerProps } from "../typings/VideoPlayerProps";
 import { defaultVideoStyle } from "./ui/Styles";
 
@@ -65,7 +65,7 @@ export class VideoPlayer extends Component<Props, State> {
         this.setState({ loading: true });
     }
 
-    private onLoad(data: any): void {
+    private onLoad(data: OnLoadData): void {
         this.setState({ loading: false, width: data.naturalSize.width, height: data.naturalSize.height });
     }
 }
