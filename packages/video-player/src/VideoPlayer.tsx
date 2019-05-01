@@ -20,8 +20,7 @@ interface State {
 }
 
 export class VideoPlayer extends Component<Props, State> {
-    readonly state = {
-        aspectRatio: undefined,
+    readonly state: State = {
         status: StatusEnum.NOT_READY
     };
 
@@ -35,7 +34,7 @@ export class VideoPlayer extends Component<Props, State> {
 
         const styles = { ...this.styles.container };
 
-        if (!!this.props.aspectRatio && this.state.aspectRatio) {
+        if (this.props.aspectRatio && this.state.aspectRatio) {
             styles.aspectRatio = this.state.aspectRatio;
         }
 
