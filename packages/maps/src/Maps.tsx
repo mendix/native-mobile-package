@@ -12,8 +12,16 @@ import { CachedGeocoder } from "./util/CachedGeocoder";
 type Props = MapsProps<MapsStyle>;
 
 interface State {
-    status: "loadingMarkers" | "loadingMap" | "mapReady" | "cameraAlmostReady" | "cameraReady";
+    status: Status;
     markers?: Marker[];
+}
+
+const enum Status {
+    LoadingMarkers = "loadingMarkers",
+    LoadingMap = "loadingMap",
+    MapReady = "mapReady",
+    CameraAlmostReady = "cameraAlmostReady",
+    CameraReady = "cameraReady"
 }
 
 interface Marker {
@@ -24,7 +32,7 @@ interface Marker {
 
 export class Maps extends Component<Props, State> {
     readonly state: State = {
-        status: "loadingMarkers"
+        status: Status.LoadingMarkers
     };
 
     private readonly onMapReadyHandler = this.onMapReady.bind(this);
@@ -38,13 +46,13 @@ export class Maps extends Component<Props, State> {
     }
 
     componentDidUpdate(): void {
-        if (this.state.status === "loadingMarkers") {
+        if (this.state.status === Status.LoadingMarkers) {
             this.parseMarkers();
         }
     }
 
     componentWillReceiveProps(): void {
-        if (this.state.status === "cameraReady") {
+        if (this.state.status === Status.CameraReady) {
             this.parseMarkers();
         }
     }
@@ -52,7 +60,7 @@ export class Maps extends Component<Props, State> {
     render(): JSX.Element {
         return (
             <View style={this.styles.container}>
-                {this.state.status !== "loadingMarkers" && (
+                {this.state.status !== Status.LoadingMarkers && (
                     <MapView
                         ref={this.mapViewRef}
                         provider={this.props.provider === "default" ? null : this.props.provider}
@@ -77,7 +85,7 @@ export class Maps extends Component<Props, State> {
                         {this.state.markers && this.state.markers.map(marker => this.renderMarker(marker))}
                     </MapView>
                 )}
-                {this.state.status !== "cameraReady" && (
+                {this.state.status !== Status.CameraReady && (
                     <View style={this.styles.loadingOverlay}>
                         <ActivityIndicator color={this.styles.loadingIndicator.color} size="large" />
                     </View>
@@ -111,26 +119,28 @@ export class Maps extends Component<Props, State> {
     private onMapReady(): void {
         if (Platform.OS === "android") {
             this.updateCamera(false);
-            this.setState({ status: this.props.interactive ? "mapReady" : "cameraReady" });
+            this.setState({ status: this.props.interactive ? Status.MapReady : Status.CameraReady });
         }
     }
 
     private onRegionChangeComplete(): void {
-        if (Platform.OS === "android" && this.state.status === "mapReady") {
-            this.setState({ status: "cameraReady" });
+        if (Platform.OS === "android" && this.state.status === Status.MapReady) {
+            this.setState({ status: Status.CameraReady });
         }
 
         if (Platform.OS === "ios") {
             switch (this.state.status) {
-                case "loadingMap":
-                    this.setState({ status: "mapReady" });
+                case Status.LoadingMap:
+                    this.setState({ status: Status.MapReady });
                     this.updateCamera(false);
                     break;
-                case "mapReady":
-                    this.setState({ status: this.props.provider === "default" ? "cameraAlmostReady" : "cameraReady" });
+                case Status.MapReady:
+                    this.setState({
+                        status: this.props.provider === "default" ? Status.CameraAlmostReady : Status.CameraReady
+                    });
                     break;
-                case "cameraAlmostReady":
-                    this.setState({ status: "cameraReady" });
+                case Status.CameraAlmostReady:
+                    this.setState({ status: Status.CameraReady });
             }
         }
     }
@@ -150,11 +160,11 @@ export class Maps extends Component<Props, State> {
 
         this.setState(
             {
-                status: this.state.status === "loadingMarkers" ? "loadingMap" : this.state.status,
+                status: this.state.status === Status.LoadingMarkers ? Status.LoadingMap : this.state.status,
                 markers: parsedMarkers as Marker[]
             },
             () => {
-                if (this.state.status === "cameraReady") {
+                if (this.state.status === Status.CameraReady) {
                     this.updateCamera(true);
                 }
             }
