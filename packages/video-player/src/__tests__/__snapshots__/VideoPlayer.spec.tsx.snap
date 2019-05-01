@@ -18,7 +18,7 @@ exports[`VideoPlayer load a video and calculate the aspect ratio 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "aspectRatio": 1.7777777777777777,
+      "aspectRatio": 1.9494584837545126,
       "backgroundColor": "black",
       "justifyContent": "center",
     }
@@ -37,29 +37,6 @@ exports[`VideoPlayer renders a loading indicator 1`] = `
     }
   }
 />
-`;
-
-exports[`VideoPlayer renders an error 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "aspectRatio": 1.7777777777777777,
-      "backgroundColor": "black",
-      "justifyContent": "center",
-    }
-  }
->
-  <Text
-    style={
-      Object {
-        "color": "white",
-      }
-    }
-  >
-    The video failed to load :(
-  </Text>
-</View>
 `;
 
 exports[`VideoPlayer shows the loading indicator if the source changes 1`] = `

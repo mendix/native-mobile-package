@@ -64,12 +64,12 @@ describe("VideoPlayer", () => {
     it("load a video and calculate the aspect ratio", () => {
         const component = render(<VideoPlayer {...defaultProps} aspectRatio={true} />);
 
-        fireEvent(component.getByType(Video), "load", { naturalSize: { width: 640, height: 360 } });
+        fireEvent(component.getByType(Video), "load", { naturalSize: { width: 1080, height: 554 } });
 
         expect(component.toJSON()).toMatchSnapshot();
         expect(component.getByType(View).props.style).toEqual({
             alignItems: "center",
-            aspectRatio: 640 / 360,
+            aspectRatio: 1.9494584837545126,
             backgroundColor: "black",
             justifyContent: "center"
         });
@@ -80,14 +80,6 @@ describe("VideoPlayer", () => {
 
         fireEvent(component.getByType(Video), "error");
 
-        expect(component.toJSON()).toMatchSnapshot();
-
-        expect(component.getByType(View).props.style).toEqual({
-            alignItems: "center",
-            aspectRatio: 640 / 360,
-            backgroundColor: "black",
-            justifyContent: "center"
-        });
         expect(component.getByType(Text).props.style).toEqual({ color: "white" });
         expect(component.getByType(Text).props.children).toEqual("The video failed to load :(");
     });

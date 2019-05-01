@@ -1,5 +1,5 @@
 import { flattenStyles } from "@native-mobile-resources/util-widgets";
-import { Component, createElement, createRef } from "react";
+import { Component, createElement } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import Video, { OnLoadData } from "react-native-video";
 import { VideoPlayerProps } from "../typings/VideoPlayerProps";
@@ -29,7 +29,6 @@ export class VideoPlayer extends Component<Props, State> {
     private readonly onLoadHandler = this.onLoad.bind(this);
     private readonly onErrorHandler = this.onError.bind(this);
     private readonly styles = flattenStyles(defaultVideoStyle, this.props.style);
-    private readonly videoRef = createRef<Video>();
 
     render(): JSX.Element {
         const uri = this.props.videoUrl && this.props.videoUrl.value;
@@ -60,14 +59,13 @@ export class VideoPlayer extends Component<Props, State> {
                     style={this.state.status !== StatusEnum.READY ? { height: 0 } : this.styles.video}
                     useTextureView={false}
                     resizeMode="contain"
-                    ref={this.videoRef}
                 />
             </View>
         );
     }
 
     private onLoadStart(): void {
-        this.setState({ status: StatusEnum.LOADING });
+        this.setState({ status: StatusEnum.LOADING, aspectRatio: undefined });
     }
 
     private onLoad(data: OnLoadData): void {
