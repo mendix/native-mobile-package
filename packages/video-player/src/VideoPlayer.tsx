@@ -7,17 +7,22 @@ import { defaultVideoStyle } from "./ui/Styles";
 
 export type Props = VideoPlayerProps<undefined>;
 
+const enum StatusEnum {
+    ERROR = "error",
+    LOADING = "loading",
+    READY = "ready",
+    NOT_READY = "not-ready"
+}
+
 interface State {
-    loading: boolean;
-    aspectRatio: number;
-    error: boolean;
+    aspectRatio?: number;
+    status: StatusEnum;
 }
 
 export class VideoPlayer extends Component<Props, State> {
     readonly state = {
-        loading: true,
-        aspectRatio: 0,
-        error: false
+        aspectRatio: undefined,
+        status: StatusEnum.NOT_READY
     };
 
     private readonly onLoadStartHandler = this.onLoadStart.bind(this);
@@ -31,14 +36,16 @@ export class VideoPlayer extends Component<Props, State> {
 
         const styles = { ...this.styles.container };
 
-        if (this.props.aspectRatio && this.state.aspectRatio > 0) {
+        if (!!this.props.aspectRatio && this.state.aspectRatio) {
             styles.aspectRatio = this.state.aspectRatio;
         }
 
         return (
             <View style={styles}>
-                {this.state.loading && <ActivityIndicator color={this.styles.indicator.color} size="large" />}
-                {this.state.error && (
+                {this.state.status === StatusEnum.LOADING && (
+                    <ActivityIndicator color={this.styles.indicator.color} size="large" />
+                )}
+                {this.state.status === StatusEnum.ERROR && (
                     <Text style={this.styles.errorMessage}>We are unable to show the video content :(</Text>
                 )}
                 <Video
@@ -50,7 +57,7 @@ export class VideoPlayer extends Component<Props, State> {
                     onLoadStart={this.onLoadStartHandler}
                     onLoad={this.onLoadHandler}
                     onError={this.onErrorHandler}
-                    style={this.state.loading || this.state.error ? { height: 0 } : this.styles.video}
+                    style={this.state.status !== StatusEnum.READY ? { height: 0 } : this.styles.video}
                     useTextureView={false}
                     resizeMode="contain"
                     ref={this.videoRef}
@@ -60,14 +67,14 @@ export class VideoPlayer extends Component<Props, State> {
     }
 
     private onLoadStart(): void {
-        this.setState({ loading: true });
+        this.setState({ status: StatusEnum.LOADING });
     }
 
     private onLoad(data: OnLoadData): void {
-        this.setState({ loading: false, aspectRatio: data.naturalSize.width / data.naturalSize.height });
+        this.setState({ status: StatusEnum.READY, aspectRatio: data.naturalSize.width / data.naturalSize.height });
     }
 
     private onError(): void {
-        this.setState({ loading: false, error: true });
+        this.setState({ status: StatusEnum.ERROR, aspectRatio: undefined });
     }
 }
