@@ -46,7 +46,7 @@ export class VideoPlayer extends Component<Props, State> {
                     <ActivityIndicator color={this.styles.indicator.color} size="large" />
                 )}
                 {this.state.status === StatusEnum.ERROR && (
-                    <Text style={this.styles.errorMessage}>We are unable to show the video content :(</Text>
+                    <Text style={this.styles.errorMessage}>The video failed to load :(</Text>
                 )}
                 <Video
                     source={{ uri }}
