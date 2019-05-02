@@ -6,7 +6,7 @@ env:
     global:
         - CHANGED_GLOBAL_FILES=$(git diff --name-only $TRAVIS_COMMIT_RANGE | grep -v "^packages")
         - PARTIAL_BUILD=$(if [ "$CHANGED_GLOBAL_FILES" == "" ] && [ "$TRAVIS_PULL_REQUEST" == "true" ]; then echo "true"; else echo "false"; fi)
-        - SCRIPT_ARGS=$(if [ "$PARTIAL_BUILD" = "true" ]; then echo "--since $TRAVIS_BRANCH"; else echo ""; fi)
+        - SCRIPT_ARGS=$(if [ "$PARTIAL_BUILD" = "false" ]; then echo "--since $TRAVIS_BRANCH"; else echo ""; fi)
 
 jobs:
     include:
