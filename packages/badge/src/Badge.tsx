@@ -3,7 +3,7 @@ import { Component, createElement } from "react";
 import { Platform, Text, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
 
 import { BadgeProps } from "../typings/BadgeProps";
-import { BadgeStyle, defaultBadgeStyle, styles } from "./ui/Styles";
+import { BadgeStyle, defaultBadgeStyle } from "./ui/Styles";
 
 export type Props = BadgeProps<BadgeStyle>;
 
@@ -15,7 +15,7 @@ export class Badge extends Component<Props> {
         const isAndroid = Platform.OS === "android";
 
         return (
-            <View style={styles.container}>
+            <View style={{ flexDirection: "row" }}>
                 <View style={this.styles.container}>
                     {this.props.onClick ? (
                         isAndroid ? (
@@ -39,7 +39,7 @@ export class Badge extends Component<Props> {
     private renderText(): JSX.Element {
         const value = this.props.caption.value || "";
 
-        return <Text style={this.styles.text}>{value}</Text>;
+        return <Text style={this.styles.caption}>{value}</Text>;
     }
 
     private onClick(): void {
