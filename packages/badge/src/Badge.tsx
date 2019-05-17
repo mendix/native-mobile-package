@@ -15,23 +15,21 @@ export class Badge extends Component<Props> {
         const isAndroid = Platform.OS === "android";
 
         return (
-            <View style={{ flexDirection: "row" }}>
-                <View style={this.styles.container}>
-                    {this.props.onClick ? (
-                        isAndroid ? (
-                            <TouchableNativeFeedback
-                                background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
-                                onPress={this.onClickHandler}
-                            >
-                                {this.renderText()}
-                            </TouchableNativeFeedback>
-                        ) : (
-                            <TouchableOpacity onPress={this.onClickHandler}>{this.renderText()}</TouchableOpacity>
-                        )
+            <View style={this.styles.container}>
+                {this.props.onClick ? (
+                    isAndroid ? (
+                        <TouchableNativeFeedback
+                            background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                            onPress={this.onClickHandler}
+                        >
+                            {this.renderText()}
+                        </TouchableNativeFeedback>
                     ) : (
-                        this.renderText()
-                    )}
-                </View>
+                        <TouchableOpacity onPress={this.onClickHandler}>{this.renderText()}</TouchableOpacity>
+                    )
+                ) : (
+                    this.renderText()
+                )}
             </View>
         );
     }

@@ -8,15 +8,16 @@ export interface BadgeStyle extends Style {
 
 export const defaultBadgeStyle: BadgeStyle = {
     container: {
+        alignSelf: "baseline",
         borderRadius: 30,
         paddingHorizontal: 10,
         paddingVertical: 5,
-        backgroundColor: "#ccc"
+        backgroundColor: "#ccc",
+        justifyContent: "center"
     },
     caption: {
         fontSize: 14,
         fontWeight: "bold",
-        color: "#444",
-        alignSelf: "center"
+        color: "#444"
     }
 };
