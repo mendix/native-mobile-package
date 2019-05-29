@@ -19,6 +19,10 @@
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true,
         "jsx": "react",
-        "jsxFactory": "createElement"
+        "jsxFactory": "createElement",
+        "baseUrl": "./",
+        "paths": {
+            "mendix/*": ["node_modules/@mendix/pluggable-widgets-api/*"]
+        }
     }
 }

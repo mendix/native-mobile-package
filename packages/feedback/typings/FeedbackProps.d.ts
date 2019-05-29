@@ -3,7 +3,7 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Team
  */
-import { DynamicValue, NativeImage } from "@mendix/pluggable-widgets-api/properties";
+import { DynamicValue, NativeImage } from "mendix/properties";
 
 interface CommonProps<Style> {
     style: Style[];

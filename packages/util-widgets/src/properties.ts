@@ -1,4 +1,4 @@
-import { DynamicValue, EditableValue, ValueStatus } from "@mendix/pluggable-widgets-api/properties";
+import { DynamicValue, EditableValue, ValueStatus } from "mendix/properties";
 
 export function available(property: EditableValue<any> | DynamicValue<any>): boolean {
     return property.status === ValueStatus.Available && property.value != null;

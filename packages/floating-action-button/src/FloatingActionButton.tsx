@@ -1,6 +1,6 @@
-import { Icon } from "@mendix/pluggable-widgets-api/components/native/Icon";
-import { ActionValue } from "@mendix/pluggable-widgets-api/properties";
 import { flattenStyles } from "@native-mobile-resources/util-widgets";
+import { Icon } from "mendix/components/native/Icon";
+import { ActionValue } from "mendix/properties";
 import { Component, createElement } from "react";
 import { View } from "react-native";
 import ActionButton from "react-native-action-button";
