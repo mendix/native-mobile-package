@@ -1,5 +1,5 @@
 import { flattenStyles } from "@native-mobile-resources/util-widgets";
-import { ValueStatus } from "mendix/properties";
+import { ValueStatus } from "mendix";
 import { Component, createElement } from "react";
 import { View, ViewStyle } from "react-native";
 

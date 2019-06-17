@@ -1,4 +1,4 @@
-import { ActionValue, DynamicValue, EditableValue, ValueStatus } from "mendix/properties";
+import { ActionValue, DynamicValue, EditableValue, ValueStatus } from "mendix";
 
 export function dynamicValue<T>(value?: T): DynamicValue<T> {
     return value == null ? { status: ValueStatus.Loading, value: undefined } : { status: ValueStatus.Available, value };

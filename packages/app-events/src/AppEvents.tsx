@@ -1,4 +1,4 @@
-import { ActionValue } from "mendix/properties";
+import { ActionValue } from "mendix";
 import { Component } from "react";
 import { AppState, AppStateStatus, NetInfo } from "react-native";
 

@@ -20,9 +20,6 @@
         "skipLibCheck": true,
         "jsx": "react",
         "jsxFactory": "createElement",
-        "baseUrl": "./",
-        "paths": {
-            "mendix/*": ["node_modules/@mendix/pluggable-widgets-api/*"]
-        }
+        "baseUrl": "./"
     }
 }

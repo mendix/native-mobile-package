@@ -1,4 +1,4 @@
-import { ActionValue } from "mendix/properties";
+import { ActionValue } from "mendix";
 import { Component } from "react";
 import firebase, { RNFirebase } from "react-native-firebase";
 
