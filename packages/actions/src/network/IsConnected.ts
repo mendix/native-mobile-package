@@ -12,7 +12,7 @@ import ReactNative from "react-native";
 function IsConnected(): Promise<boolean> {
     // BEGIN USER CODE
 
-    const NetInfo: typeof ReactNative.NetInfo = require("@react-native-community/netinfo");
+    const NetInfo: typeof ReactNative.NetInfo = require("@react-native-community/netinfo/lib/commonjs");
 
     return NetInfo.isConnected.fetch();
 
